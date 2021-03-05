@@ -55,7 +55,7 @@ If you've chosen to provision your own environment you can access the OpenShift 
 A screenshot of the Overview screen is provided for reference.
 
 {blank}
-image::images/lab1-console-url.png[Cluster Overview, role="integr8ly-img-responsive"]
+image::/images/lab1-console-url.png[Cluster Overview, role="integr8ly-img-responsive"]
 
 Once you've been provided with a URL to your environment, you will be able to login using a configured IdP (identity provider).
 Any available IdPs are listed on the OpenShift login screen as shown in the following screenshot.
