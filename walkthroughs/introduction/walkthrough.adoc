@@ -22,7 +22,6 @@ following image provides a high-level architecture overview of {rhoam-acronym}:
 
 image::images/basic-architecture.png[architecture, role="integr8ly-img-responsive"]
 
-{blank}
 
 It is assumed you have access to a {rhoam-acronym} environment from this point forward.
 You can get access by:
@@ -54,18 +53,15 @@ If you've chosen to provision your own environment you can access the OpenShift 
 
 A screenshot of the Overview screen is provided for reference.
 
-{blank}
-image::/images/lab1-console-url.png[Cluster Overview, role="integr8ly-img-responsive"]
+image::images/lab1-console-url.png[Cluster Overview, role="integr8ly-img-responsive"]
 
 Once you've been provided with a URL to your environment, you will be able to login using a configured IdP (identity provider).
 Any available IdPs are listed on the OpenShift login screen as shown in the following screenshot.
 
-{blank}
 image::images/lab1-login.png[OpenShift Login Screen, role="integr8ly-img-responsive"]
 
 Choose the appropriate IdP and login. You should be redirected to the {osd-name} console.
 
-{blank}
 image::images/lab1-osd-console.png[OpenShift Console, role="integr8ly-img-responsive"]
 
 Documentation for {osd-name} IdP configuration is available at link:https://docs.openshift.com/dedicated/4/authentication/dedicated-understanding-authentication.html[this link].
@@ -83,12 +79,10 @@ The procedure is the same for both products.
 
 This is a screenshot the {3scale-name} console:
 
-{blank}
 image::images/lab1-3scale-console.png[3scale Console, role="integr8ly-img-responsive"]
 
 And this is a screenshot of the {sso-name} console:
 
-{blank}
 image::images/lab1-sso-console.png[SSO Console, role="integr8ly-img-responsive"]
 
 == Create a Project on {osd-name}
@@ -114,7 +108,6 @@ oc new-project $PROJECT_NAME
 
 Here's an image showing these commands running in a terminal:
 
-{blank}
 image::images/lab1-oc-project.png[Using oc CLI to create a project, role="integr8ly-img-responsive"]
 
 == Test the Quarkus Application and Deploy to {osd-name}
@@ -143,7 +136,6 @@ oc project $PROJECT_NAME
 The build process can take up to 2 minutes.
 While it's in you can view the logs by visiting the *Builds* section of your project as shown.
 
-{blank}
 image::images/lab1-build.png[Build Configs, role="integr8ly-img-responsive"]
 
 Once the build is complete issue the `oc get route` command to find the URL for your Quarkus application.
