@@ -1,0 +1,13 @@
+:standard-fail-text: Verify that you followed all the steps. If you continue to have issues, contact a workshop assistant.
+:namespace: {user-username}
+:idp: GitHub
+:ocm-url: https://cloud.redhat.com
+:osd-name: OpenShift Dedicated
+:osd-acronym: OSD
+:rhoam-name: Red Hat OpenShift API Management
+:rhoam-acronym: RHOAM
+:3scale-name: 3scale API Management
+
+
+
+= Red Hat OpenShift API Management Service Discovery
