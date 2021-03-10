@@ -11,17 +11,22 @@
 
 
 
-= Red Hat OpenShift API Management Service Discovery
+= Red Hat OpenShift API Management Introduction
 
-This lab provides an introduction to {rhoam-name}, also known as {rhoam-acronym}.
+This lab provides an introduction to {rhoam-name}, also known as {rhoam-acronym}. If you're already familiar with Red Hat {osd-name}, Red Hat {3scale-name} and Red Hat {sso-name} you'll immediately feel at home using {rhoam-acronym}.
 
-In essence {rhoam-acronym} is {3scale-name} delivered as an addon for
+{rhoam-acronym} is {3scale-name} delivered as an addon for
 {osd-name} ({osd-acronym}). Both {osd-acronym}, and the {rhoam-acronym} addon
 running on top of it, are managed by Red Hat SRE and have a 99.95% SLA. The
-following image provides a high-level architecture overview of {rhoam-acronym}:
+following image provides a high-level overview of the {rhoam-acronym} architecture:
 
 image::images/basic-architecture.png[architecture, role="integr8ly-img-responsive"]
 
+However, since {rhoam-acronym} is a hosted an managed service there's a little more to it than that picture shows.
+{rhoam-acronym} clusters are provisioned and managed using Red Hat OpenShift Cluster Manager on link:{ocm-url}[cloud.redhat.com, window="_blank"].
+Operators are installed on the {osd-acronym} to manage the {rhoam-acronym} product lifecycle, and keep SRE teams informed of the cluster and service health. A more detailed architectural representation of this is pictured below.
+
+image::images/detailed-architecture.png[detailed architecture, role="integr8ly-img-responsive"]
 
 It is assumed you have access to a {rhoam-acronym} environment from this point forward.
 You can get access by:
@@ -93,7 +98,7 @@ Here's how to do that:
 
 . Navigate to the {osd-name} Console.
 . Click your name in the top-right, then click *Copy Login Command*.
-. Login using you IdP if necessary, and click *Display Token*.
+. r IdP if necessary, and click *Display Token*.
 . Copy the `oc login` command and paste it into a terminal in your local development environment.
 
 You should be successfully logged in and able to use the OpenShift CLI now.
@@ -130,15 +135,17 @@ If all is working as expected, deploy the application using the following comman
 
 ----
 oc project $PROJECT_NAME
+
+# Note $PROJECT_NAME must be set for this next command to work!
 ./mvnw clean package -Dquarkus.kubernetes.deploy=true -Dquarkus.openshift.expose=true
 ----
 
 The build process can take up to 2 minutes.
-While it's in you can view the logs by visiting the *Builds* section of your project as shown.
+You can view the Build logs by visiting the *Builds* section of your project as shown.
 
 image::images/lab1-build.png[Build Configs, role="integr8ly-img-responsive"]
 
-Once the build is complete issue the `oc get route` command to find the URL for your Quarkus application.
+Once the build is complete issue the `oc get route -n $PROJECT_NAME` command to find the URL for your Quarkus application.
 Verify that the `/fruits` and `/openapi?format=json` endpoints are working as expected since these are required for the next lab.
 
 You're now ready for Lab 2!
