@@ -29,7 +29,7 @@ The Grafana Monitoring instance is only accessible by users that have been assig
 Reach out to your lab administrator to request elevating your permissions. If you're the owner of the cluster in Red Hat OpenShift Cluster Manager you can personally upgrade your account to a dedicated-admin.
 ====
 
-. Navigate to the {osd-name} console and login if necessary.
+. Navigate to the {osd-name} console and login.
 . Click the *Application Launcher* icon in the {osd-name} console. This the square icon in the top-right.
 . Select *API Management Dashboards* from the *Application Launcher* menu.
 . A new browser tab will open and prompt you to login using OpenShift OAuth. Click the *Log in with OpenShift* button.

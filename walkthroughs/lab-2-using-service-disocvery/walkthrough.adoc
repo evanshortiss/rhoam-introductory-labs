@@ -27,7 +27,7 @@ A set of *labels* and *annotations* must be applied to your Quarkus API before {
 
 To apply the necessary annotations:
 
-. Navigate to the {osd-name} Console and login if necessary.
+. Navigate to the {osd-name} Console and login.
 . Click your name in the top-right, then click *Copy Login Command*.
 . Login using your IdP if prompted, and click *Display Token*.
 . Copy the `oc login` command and paste it into a terminal in your local development environment.
