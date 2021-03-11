@@ -59,6 +59,15 @@ image::images/lab2-svc-yaml.png[Quarkus Service YAML, role="integr8ly-img-respon
 
 == Import your Quarkus API using Service Discovery
 
+[NOTE]
+====
+After {3scale-name} users are assigned a restrictive read-only role by default. This means they cannot create, update, or delete API resources in {3scale-name}.
+
+{osd-name} users with the link:https://docs.openshift.com/dedicated/4/administering_a_cluster/dedicated-admin-role.html[*dedicated-admin*, window="_blank"] role are provided with {3scale-name} admin permissions by default.
+
+Reach out to your lab administrator to request increased access to the {3scale-name} instance if necessary. If you're the owner of the cluster in Red Hat OpenShift Cluster Manager you can personally upgrade your account to a dedicated-admin.
+====
+
 Log in to 3scale API Management using your configured IdP, and click the New Product link on the dashboard.
 Perform the following steps on the New Product screen:
 

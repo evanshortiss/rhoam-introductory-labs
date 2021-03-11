@@ -77,7 +77,7 @@ Now that you've successfully logged into your {osd-acronym} cluster you can acce
 
 The procedure is the same for both products.
 
-. Click the Application Launcher icon in the {osd-name} console. This the square icon in the top-right.
+. Click the *Application Launcher* icon in the {osd-name} console. This the square icon in the top-right.
 . Select *API Management* to access {3scale-name}, or *API Management SSO* to access {sso-name}.
 . A new browser tab will open and prompt you to login. Login using your IdP.
 . You will be redirected to the applicable product console after successfully authenticating with your IdP.
