@@ -13,7 +13,7 @@
 :plan-system-name: {project-var}-test-plan
 :application-name: {project-var} Test Application
 
-= Red Hat OpenShift API Management & Service Discovery
+= Using Red Hat OpenShift API Management & Service Discovery
 
 _Note: You must complete the *Red Hat OpenShift API Management Introduction* lab prior to starting this one._
 
