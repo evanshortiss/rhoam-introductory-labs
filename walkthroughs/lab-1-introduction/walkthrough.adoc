@@ -90,7 +90,7 @@ And this is a screenshot of the {sso-name} console:
 
 image::images/lab1-sso-console.png[SSO Console, role="integr8ly-img-responsive"]
 
-== Create a Project on {osd-name}
+== Create and Deploy a Project on {osd-name}
 
 As part of this lab you'll deploy a Quarkus application for use in future labs.
 To deploy the Quarkus application you must first create a project.
@@ -98,7 +98,7 @@ Here's how to do that:
 
 . Navigate to the {osd-name} Console.
 . Click your name in the top-right, then click *Copy Login Command*.
-. r IdP if necessary, and click *Display Token*.
+. Login using your IdP, and click *Display Token*.
 . Copy the `oc login` command and paste it into a terminal in your local development environment.
 
 You should be successfully logged in and able to use the OpenShift CLI now.

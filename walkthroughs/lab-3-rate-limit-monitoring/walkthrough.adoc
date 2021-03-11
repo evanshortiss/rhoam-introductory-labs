@@ -22,13 +22,6 @@ A Grafana "Rate Limiting" dashboard is provided with {rhoam-acronym} Customers c
 
 == Accessing the Grafana Monitoring Instance
 
-[NOTE]
-====
-The Grafana Monitoring instance is only accessible by users that have been assigned the link:https://docs.openshift.com/dedicated/4/administering_a_cluster/dedicated-admin-role.html[*dedicated-admin*, window="_blank"] role on the {osd-name} cluster.
-
-Reach out to your lab administrator to request elevating your permissions. If you're the owner of the cluster in Red Hat OpenShift Cluster Manager you can personally upgrade your account to a dedicated-admin.
-====
-
 . Navigate to the {osd-name} console and login.
 . Click the *Application Launcher* icon in the {osd-name} console. This the square icon in the top-right.
 . Select *API Management Dashboards* from the *Application Launcher* menu.
@@ -39,6 +32,13 @@ image::images/lab3-auth.png[OpenShift OAuth, role="integr8ly-img-responsive"]
 . Authorize the account permissions request by choosing *Allow selected permissions*.
 +
 image::images/lab3-auth-permissions.png[OpenShift OAuth Permissions, role="integr8ly-img-responsive"]
+
+[NOTE]
+====
+The Grafana Monitoring instance is only accessible by users that have been assigned the link:https://docs.openshift.com/dedicated/4/administering_a_cluster/dedicated-admin-role.html[*dedicated-admin*, window="_blank"] role on the {osd-name} cluster.
+
+Reach out to your lab administrator to request this level of access if you cannot access the dashboard. If you're the owner of the cluster in Red Hat OpenShift Cluster Manager you can personally upgrade your account to a dedicated-admin.
+====
 
 You should be redirected to a Grafana instance homepage after successfully authenticating and authorizing account access.
 
@@ -59,9 +59,7 @@ image::images/lab3-finding-dashboards.png[Grafana Dashboards Dropdown, role="int
 
 At this point you should be viewing the *RHOAM API Rate Limiting* Grafana dashboard.
 
-== Using the Dashboard
-
-=== The Basics
+== Dashboard Overview
 
 The *RHOAM API Rate Limiting* dashboard has useful information that includes:
 
@@ -76,21 +74,22 @@ The *RHOAM API Rate Limiting* dashboard has useful information that includes:
 A rejected request is defined as a request that was attempted by a client, but rejected by {rhoam-name} with a link:https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429[HTTP 429, window="_blank"] due to the active subscription's rate limit being exceeded.
 
 The following image shows a cluster that has minimal API activity - just 363 HTTP requests were processed by {3scale-name} in the past 24 hours.
+No requests are counted as rejected since 363 requests in a 24 hour window is nowhere close to the limits of any available subscription limit.
 
 image::images/lab3-grafana-dashboard.png[Grafana Dashboards Dropdown, role="integr8ly-img-responsive"]
 
-=== Per Minute API Requests Graph
+== Per Minute API Requests Graph
 
 The *Per Minute API Requests Graph* does exactly what the name implies. It displays historical data for the number of requests processed by {3scale-name} in a given minute.
 
 In the top-right you can filter the time range that is displayed for the *Per Minute API Requests* graph.
 Data points for the *No. of Requests*, represented by the green line, is the number of requests processed in a given minute.
 
-The following image displays an example of viewing data for a *Last 1 hour*. Notice how it has peaks of traffic followed by periods of inactivity.
+The following image displays an example of viewing data for a *Last 1 hour*. Notice how the graph displays small peaks of traffic followed by periods of inactivity.
 
 image::images/lab3-grafana-bursty.png[Grafana Burst Traffic, role="integr8ly-img-responsive"]
 
-The graph includes a few other useful lines that are in fixed positions. These lines represent important thresholds that you can use to gauge your API activity, and how close it is to exceeding your subscription limits. For example, a sustained rate of ~3K requests per minute will approach the limits of 50M requests per day subscription. The same applies for 7K per minute and a 10M requests per day subscription, etc.
+The graph includes a few other useful lines that are in fixed positions. These lines represent important thresholds that you can use to gauge your API activity, and how close it is to exceeding subscription limits. For example, a sustained rate of ~3K requests per minute will approach the limits of 50M requests per day subscription. The same applies for 7K per minute and a 10M requests per day subscription, etc.
 
 === Filtered Per Minute API Requests Graph
 
@@ -99,3 +98,29 @@ If you'd like to view *only* the requests per minute you can click the *No. of R
 image::images/lab3-grafana-req-only.png[Grafana Burst Traffic, role="integr8ly-img-responsive"]
 
 This is useful to view requests per minute in isolation, since the fixed position metrics can skew the scaling.
+
+Run the following command to send requests to your Quarkus API, with a one second delay between each, and monitor the results in Grafana. Leave the script running for a few minutes then stop it.
+
+[subs="attributes+"]
+----
+# Replace this URL with your own from Lab 2
+export STAGING_API_URL="https://$PROJECT_NAME_$PROJECT_NAME-rhoam-openapi-3scale-apicast-staging.apps.$CLUSTER_NAME.openshiftapps.com:443/fruits?user_key=$API_KEY"
+
+
+while sleep 0.65; do curl "$STAGING_API_URL" && echo " - $(date)"; done
+----
+
+After running this command you should have generated a graph that is similar to the one shown in the image below. This image shows a steady rate of 60 requests per minute, but your graph might show some variability.
+
+[NOTE]
+====
+Don't forget that if you're sharing a lab environment other lab users requests be reflected in this graph.
+====
+
+image::images/lab3-grafana-steady-traffic.png[Grafana Steady Traffic, role="integr8ly-img-responsive"]
+
+Once you stop the script the graph should level out, or drop slightly similar to the following image.
+
+image::images/lab3-grafana-steady-traffic-after.png[Grafana Steady Traffic After, role="integr8ly-img-responsive"]
+
+Now you know how to access and view the Rate Limiting Grafana Dashboard that's included with {rhoam-name}.
