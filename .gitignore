@@ -1,0 +1,68 @@
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Eclipse files #
+#############
+/.project
+.classpath
+.settings/
+/.metadata
+target/
+*.prefs
+*.name
+*.container
+*.component
+*.project
+*.buildscript
+MANIFEST.MF
+
+# Maven Files #
+###############
+*.sha1
+*.repositories
+*.Final.pom*
+*.lastUpdated
+
+
+# Dropbox Files #
+###############
+*/Dropbox/
+
+# Vim Files #
+###############
+*.swp
+Session.vim
+*.vim
+explicitly allow tracking of ~/.vim/
+!.vim
+
+# VSCode
+.vscode
+
+# IntelliJ files #
+##################
+.idea/
