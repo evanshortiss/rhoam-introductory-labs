@@ -23,7 +23,7 @@ This lab will guide you through the process of creating a link:https://www.opens
 
 Once this OpenShift Dedicated cluster is created you will be able to apply the {rhoam-name} ({rhoam-acronym}) addon on it to use API Management features.
 
-We will be using an AWS Account for the purposes of this lab.
+We will be using an AWS Account for the purposes of this lab. If you're a Red Hat employee, then head over to RHPDS and obtain an AWS account using the *Red Hat Open Environments > AWS Blank Open Environment* if you need to.
 
 == Setup the AWS CLI
 
