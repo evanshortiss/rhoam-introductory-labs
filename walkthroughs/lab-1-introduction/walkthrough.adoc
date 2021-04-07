@@ -31,7 +31,7 @@ image::images/detailed-architecture.png[detailed architecture, role="integr8ly-i
 It is assumed you have access to a {rhoam-acronym} environment from this point forward.
 You can get access by:
 
-. Requesting it from a lab instructor (if you're following this content as part of an instructor led lab)
+. Requesting it from a lab instructor if you're following this content as part of an instructor led lab.
 . Provisioning an environment of your own at link:{ocm-url}[cloud.redhat.com, window="_blank"] using the following instructions:
 .. link:{https://access.redhat.com/documentation/en-us/red_hat_openshift_api_management/1/}[Official Documentation]
 .. link:{https://www.youtube.com/watch?v=sd2TlBm5KHs}[Video Instructions]

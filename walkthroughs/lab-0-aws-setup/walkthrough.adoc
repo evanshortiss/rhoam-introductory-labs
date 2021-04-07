@@ -1,0 +1,241 @@
+:standard-fail-text: Verify that you followed all the steps. If you continue to have issues, contact a workshop assistant.
+:namespace: {user-username}
+:idp: GitHub
+:ocm-url: https://cloud.redhat.com
+:osd-name: OpenShift Dedicated
+:osd-acronym: OSD
+:rhoam-name: Red Hat OpenShift API Management
+:rhoam-acronym: RHOAM
+:3scale-name: 3scale API Management
+:sso-name: Single Sign-On
+
+
+= Create and Configure an {osd-name} Cluster
+
+[NOTE]
+====
+This is lab is optional. The instructor may have already completed this on your behalf. Check with your instructor before attempting to completing this section.
+====
+
+{rhoam-name} must be installed into an existing {osd-name} cluster.
+
+This lab will guide you through the process of creating a link:https://www.openshift.com/dedicated/ccs[Customer Cloud Subscription (CCS)] that allows Red Hat to deploy and manage resources for an OpenShift Dedicated ({osd-acronym}) cluster in a given cloud vendor account.
+
+Once this OpenShift Dedicated cluster is created you will be able to apply the {rhoam-name} ({rhoam-acronym}) addon on it to use API Management features.
+
+We will be using an AWS Account for the purposes of this lab.
+
+== Setup the AWS CLI
+
+The AWS CLI is required to prepare the AWS Account for use with CCS. Use the instructions at this link to link:https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html[install AWS CLI v2] on your system.
+
+Once the CLI has been installed verify the installation by issuing an `aws --version` command. You should see output similar to this:
+
+----
+aws-cli/2.0.26 Python/3.7.4 Darwin/20.3.0 botocore/2.0.0dev30
+----
+
+Next, configure the AWS CLI using the `aws configure` command. This requires an *Access Key ID* and *Secret Access Key*.
+
+This lab assumes you're using an RHPDS account with the *Red Hat Open Environments > AWS Blank Open Environment* provisioned. As a result you'll have access to these two pieces of information from the RHPDS UI. If you're not using RHPDS then you'll need to follow the link:https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config[AWS guide here].
+
+Once you have the *Access Key ID* and *Secret Access Key* use them to configure the AWS CLI.
+
+----
+aws configure
+
+AWS Access Key ID: ****************
+AWS Secret Access Key: ****************
+Default region name [us-east1]:
+Default output format [None]:
+----
+
+== Create an AWS IAM Policy for CCS
+
+The OpenShift Cluster Manager on link:{ocm-url}[cloud.redhat.com] requires a user named *osdCcsAdmin* to provision the OpenShift Dedicated resources in your AWS Account - this is described on the *Customer Procedure* section of the link:https://www.openshift.com/dedicated/ccs[Customer Cloud Subscription (CCS)] page.
+
+Here's how you can create this policy and user via the AWS CLI:
+
+1. Create a file that contains this JSON:
++
+----
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "*",
+            "Resource": "*",
+            "Effect": "Allow"
+        }
+    ]
+}
+----
+2. Create an IAM Policy using the file
++
+----
+export POLICY_NAME=osd-ccs-policy
+
+# Note that the file:// prefix is necessary to reference your
+# file that contains the JSON policy definition
+aws iam create-policy --policy-name $POLICY_NAME --policy-document file:///Users/yourusername/policy.json
+----
+3. Take note of the returned *Account ID*. You'll need it later. If you lose it you can retrieve it again using the `aws sts get-caller-identity` command.
+4. Create the *osdCcsAdmin* user:
++
+----
+export OSD_USER=osdCcsAdmin
+
+aws iam create-user --user-name $OSD_USER
+----
+5. Attach the policy to the user using the account ID from earlier:
++
+----
+aws iam attach-user-policy --policy-arn arn:aws:iam::$ACCOUNT_ID:policy/$POLICY_NAME --user-name $OSD_USER
+----
+6. Lastly, create a new *Access Key ID* and *Secret Access Key* for the *osdCcsAdmin* user:
++
+----
+aws iam create-access-key --user-name osdCcsAdmin
+----
+7. Do not lost the output from the `aws iam create-access-key --user-name osdCcsAdmin` command. You'll need it in the next section.
+
+== Provision the {osd-name} Cluster
+
+=== Verify Subscription Quota
+
+It's important to verify your quota prior to attempting to create the cluster using OpenShift Cluster Manager. Here's how to do that.
+
+. Navigate to the OpenShift Cluster Manager at link:{ocm-url/openshift}[cloud.redhat.com/openshift]
+. Select *Subscriptions* from the side-menu.
+. Verify that you have active subscriptions for an {osd-acronym} Cluster, {osd-acronym} nodes, and the and {rhoam-acronym} addon.
+
+Your quota should appear similar to the following screenshot.
+
+image::images/lab0-ocm-subs.png[OpenShift Cluster Manager Subscriptions Summary, role="integr8ly-img-responsive"]
+
+[NOTE]
+====
+Let your lab instructor know if your quota appears to be missing, or is significantly different to the screenshot.
+====
+
+=== Provisioning an {osd-name} Cluster on AWS
+
+. Navigate to the OpenShift Cluster Manager at link:{ocm-url/openshift}[cloud.redhat.com/openshift]
+. Click the *Create* cluster button beside *Red Hat {osd-name}*.
++
+image::images/lab0-ocm-create-0.png[OpenShift Cluster Manager Create, role="integr8ly-img-responsive"]
+. Choose AWS as the infrastructure provider
++
+[NOTE]
+====
+A prompt to accept Terms and Conditions might appear. You must accept the Terms and Conditions to continue, so go ahead and do that if asked.
+
+A second prompt explaining the *Customer cloud subscription* may also be displayed. Feel free to read and dismiss it. We'll cover what it explains in this lab.
+====
+. The *Customer cloud subscription* option should be pre-selected for *Billing model*. If not, select it.
+. Populate the following *AWS Account details* using the values from the setup you performed using the AWS CLI earlier:
+.. AWS Account ID
+.. AWS access key ID
+.. AWS secret access key
+. Under the *Cluster details*:
+.. Enter a cluster name, e.g `yourname-cluster`.
+.. Select the *Region* that matches what you used when following the `aws configure` instructions previously.
+.. Leave the *Availability* set to *Single-zone*.
++
+image::images/lab0-ocm-aws-config.png[OpenShift Cluster Manager Create AWS Config, role="integr8ly-img-responsive"]
+. Set the following options for *Scale*:
+.. Choose *m5.xlarge* worker nodes
+.. Set the *Worker node count* to *8*.
+. Select *Basic* as the *Networking Configuration*.
+. Select *Manual* for the *Cluster updates* option.
++
+image::images/lab0-ocm-network-config.png[OpenShift Cluster Manager Create Network Config, role="integr8ly-img-responsive"]
+. Click *Create cluster*.
+
+At this point the {osd-name} Cluster will start provisioning. This can take up to 30 minutes. In the meantime you can configure OAuth access to the cluster!
+
+== Configure Cluster Access Management
+
+Access to {osd-name} Clusters is managed using external IdPs. The following options are supported:
+
+* LDAP
+* GitHub & GitHub Enterprise
+* Google
+* OpenID Connect
+
+For the purpose of this lab we'll configure a GitHub IdP. You need a GitHub account to do this.
+
+[NOTE]
+====
+You can read more about cluster authentication in the link:https://docs.openshift.com/dedicated/4/authentication/dedicated-understanding-authentication.html[documentation here].
+====
+
+=== Create a GitHub Organisation
+
+To get started, you'll need to create a GitHub Organisation. If you already have one that you'd like to use, then feel free to skip this step.
+
+. Login to your account on link:https://github.com/[github.com].
+. Navigate to the link:https://github.com/organizations/plan[create organisation page] and choose the free plan.
+. Enter a name for the organisation.
+. Enter your contact email address.
+. Select *My personal account* when asked who the organisation belongs to. The complete form will look similar to this:
++
+image::images/lab0-gh-org-create.png[GitHub Org Creation, role="integr8ly-img-responsive"]
+. Click *Next* and follow the steps complete the process.
+. After the organisation has been created add any users you'd like to use with your {osd-acronym} cluster to it. You can do this using the *Invite someone* button. Make sure to invite your own GitHub user account!
++
+image::images/lab0-gh-invite.png[GitHub Org Invite, role="integr8ly-img-responsive"]
+
+=== Add GitHub Authentication to the Cluster
+
+. Navigate to the OpenShift Cluster Manager at link:{ocm-url/openshift}[cloud.redhat.com/openshift].
+. Select your cluster from the list. The cluster details will be displayed.
+. Select the *Access control* tab form the cluster details.
+. Click the *Add identity provider* button. A dialog will appear.
+. Choose *GitHub* from the *Identity Provider* dropdown.
+. Enter a name. Entering just "GitHub" is fine.
+. Copy the *OAuth callback URL*, and leave the dialog open.
+. Open another browser tab/window, and use it to navigate to your GitHub organisation. If you lost your organisation URL you can find it at link:https://github.com/settings/organizations[github.com/settings/organizations].
+. Select *Settings* from the organisation homepage.
+. Scroll down and click *Developer Settings > OAuth Apps* from the side-menu.
+. Click the *New OAuth App* button in the top-right.
++
+image::images/lab0-gh-new-app.png[GitHub New OAuth App, role="integr8ly-img-responsive"]
+. Enter an *Application name*.
+. Any URL can be used as the homepage URL, but enter "https://cloud.redhat.com" for the time being.
+. Paste the URL you copied into the *Authorization callback URL* field on cloud.redhat.com.
+. Click the *Register application* button. You should be redirected to your application's page.
++
+image::images/lab0-gh-oauth-app.png[GitHub OAuth application, role="integr8ly-img-responsive"]
+. Copy the *Client ID* from this page and paste it into the corresponding field on cloud.redhat.com.
+. Return to the GitHub application page and click the *Generate a new client secret* button.
+. Copy the secret and paste it into the corresponding field on cloud.redhat.com.
+. Click *Confirm* in the cloud.redhat.com dialog.
+
+You now have an IdP configured and can login to your {osd-name} cluster once the provisioning has completed.
+
+[NOTE]
+====
+It can take 1-2 minutes for the IdP settings to synchronise with the {osd-name} cluster. If you click *Open Console* to view the {osd-name} Console and don't see your IdP listed then you'll need to wait a minute and refresh the page.
+====
+
+=== Add Cluster Administrative Users
+
+All users that login using the configured IdP (GitHub in this case) are regular users by default. This lab requires you to make yourself a *dedicated-admin*.
+
+You can read more about users and roles in the link:https://docs.openshift.com/dedicated/4/administering_a_cluster/dedicated-admin-role.html[{osd-acronym} Documentation].
+
+Follow these steps to apply the *dedicated-admin* role to your user:
+
+. Navigate to the OpenShift Cluster Manager at link:{ocm-url/openshift}[cloud.redhat.com/openshift]
+. Select your cluster from the list.
+. Select the *Access control* section.
+. Click the *Add user* button. A dialog should appear.
+. Enter your _GitHub username_ (because you're using GitHub as an IdP) and select the *dedicated-admins* group.
+. Click the *Add user* button to save the change.
+
+Your GitHub user is a *dedicated-admin* now.
+
+== Login to the Cluster
+
+TODO
