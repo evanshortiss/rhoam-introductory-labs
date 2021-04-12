@@ -8,7 +8,7 @@
 :rhoam-acronym: RHOAM
 :3scale-name: 3scale API Management
 :project-var: $PROJECT_NAME
-:base-api-svc-name: {project-var}-rhoam-openapi
+:base-api-svc-name: rhoam-openapi
 :plan-pretty-name: {project-var} Test Plan
 :plan-system-name: {project-var}-test-plan
 :application-name: {project-var} Test Application
