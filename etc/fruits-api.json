@@ -1,0 +1,112 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Fruits API",
+        "version": "1.0",
+        "description": "OpenAPI document for Fruits API"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080/",
+            "description": ""
+        }
+    ],
+    "paths": {
+        "/fruits": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SetFruit"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Fruit"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SetFruit"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Fruit"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SetFruit"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Fruit": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                }
+            },
+            "SetFruit": {
+                "uniqueItems": true,
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Fruit"
+                }
+            }
+        },
+        "securitySchemes": {
+            "ApiKeyAuth": {
+                "type": "apiKey",
+                "name": "user_key",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        {
+            "ApiKeyAuth": []
+        }
+    ]
+}
