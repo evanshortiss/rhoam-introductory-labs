@@ -32,7 +32,7 @@ The AWS CLI is required to prepare the AWS Account for use with CCS. Use the ins
 Once the CLI has been installed verify the installation by issuing an `aws --version` command. You should see output similar to this:
 
 ----
-aws-cli/2.0.26 Python/3.7.4 Darwin/20.3.0 botocore/2.0.0dev30
+aws-cli/2.1.38 Python/3.8.8 Darwin/20.3.0 exe/x86_64 prompt/off
 ----
 
 Next, configure the AWS CLI using the `aws configure` command. This requires an *Access Key ID* and *Secret Access Key*.
