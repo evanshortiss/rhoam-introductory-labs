@@ -77,7 +77,7 @@ Next, configure the AWS CLI using the `aws configure` command. This requires an 
 
 This lab assumes you're using an RHPDS account with the *Red Hat Open Environments > AWS Blank Open Environment* provisioned. As a result you'll have access to these two pieces of information from the RHPDS UI. If you're not using RHPDS then you'll need to follow the link:https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config[AWS guide here].
 
-Once you have the *Access Key ID* and *Secret Access Key* use them to configure the AWS CLI per the following screenshot. The chosen region is `us-east1` since this is the default region for RHPDS.
+Once you have the *Access Key ID* and *Secret Access Key* use them to configure the AWS CLI per the following screenshot. The chosen region is `us-east-2` since this is the default region for RHPDS.
 
 image::images/lab-0-rhpds-aws-configure.png[AWS CLI Configuration, role="integr8ly-img-responsive"]
 
@@ -167,12 +167,13 @@ image::images/lab0-ocm-create-0.png[OpenShift Cluster Manager Create, role="inte
 +
 [NOTE]
 ====
-A prompt to accept Terms and Conditions might appear. You must accept the Terms and Conditions to continue, so go ahead and do that if asked.
+A prompt to accept Terms and Conditions might appear. You must accept the Terms and Conditions to continue, so go ahead and do that if asked. +
+If you see an error page appearing,switch to a private browser window.
 
 A second prompt explaining the *Customer cloud subscription* may also be displayed. Feel free to read and dismiss it. We'll cover what it explains in this lab.
 ====
 . The *Customer cloud subscription* option should be pre-selected for *Billing model*. If not, select it.
-. Populate the following *AWS Account details* using the values from the setup you performed using the AWS CLI earlier:
+. Populate the following *AWS Account details* using the values from the setup you performed using the AWS CLI earlier. Use the AWS Access key and secret from the `osdCcsAdmin` user you created previously:
 .. AWS Account ID
 .. AWS access key ID
 .. AWS secret access key
