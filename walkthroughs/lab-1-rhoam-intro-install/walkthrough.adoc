@@ -105,7 +105,16 @@ Documentation for {osd-name} IdP configuration is available at link:https://docs
 
 If the {rhoam-name} Add-on has completed installation you can login into your {osd-acronym} cluster, and you can access the managed {3scale-name} and {sso-name} instances.
 
-The procedure is the same for both products.
+You can confirm the Add-on installation is complete by checking the Add-ons tab in OpenShift Cluster Management as shown.
+
+image::images/lab1-addon-status.png[Add-on Status in OCM]
+
+[NOTE]
+====
+At the time of writing there is a known issue that may cause the Add-on to report a status of "Installed" prior to completion. Be patient with this and check the *Installed Operators* page to confirm that the various operators have finished installing.
+====
+
+The procedure to access the consoles is the same for both {3scale-name} and {sso-name}.
 
 . Click the *Application Launcher* icon in the {osd-name} console. This the square icon in the top-right.
 . Select *API Management* to access {3scale-name}, or *API Management SSO* to access {sso-name}.
