@@ -23,7 +23,45 @@ This lab will guide you through the process of creating a link:https://www.opens
 
 Once this OpenShift Dedicated cluster is created you will be able to apply the {rhoam-name} ({rhoam-acronym}) addon on it to use API Management features.
 
-We will be using an AWS Account for the purposes of this lab. If you're a Red Hat employee, then head over to RHPDS and obtain an AWS account using the *Red Hat Open Environments > AWS Blank Open Environment* if you need to.
+== Obtaining an AWS Account
+
+We will be using an AWS Account for the purposes of this lab.
+
+=== Using RHPDS
+
+[NOTE]
+====
+These instructions are only applicable for Red Hat employees or partners with RHPDS access and the relevant entitlements for the listed catalog item(s).
+
+If you believe you should be able to, cannot obtain an AWS environment using these steps please reach out to the workshop administrator(s).
+====
+
+. Login to link:https://rhpds.redhat.com/[RHPDS].
+. Select *Services > Catalogs* from the side-menu.
+. Expand the *Red Hat Open Environments* and select *AWS Blank Open Environment*.
+. Scroll down and click *Order*.
++
+image::images/lab-0-rhpds-order.png[RHPDS AWS Open Environment Ordering, role="integr8ly-img-responsive"]
+. Check the box confirm you understand the warnings.
+. Select *Training - As part of a course* for the *Purpose*.
+. Enter an *Opportunity Number/ID or Campaign ID* if necessary.
+. Click *Submit*.
+
+The environment will start provisioning. It should be ready after a couple of minutes. Verify it was successful using the following steps:
+
+. Select *Services > My Services* from the RHPDS side-menu.
+. Verify that an entry is listed under *Active Services*.
+. Select the entry from the *Active Services* list and confirm that:
+.. The *Name* ends with `COMPLETED`, e.g `RHPDS-RH-yourusername-redhat.com-PROD_SANDBOX-5f11_COMPLETED`.
+.. The *Custom Attributes* section contains an *AWS_ACCESS_KEY_ID* and *AWS_SECRET_ACCESS_KEY*.
+
+image::images/lab-0-rhpds-aws.png[RHPDS AWS Open Environment Details, role="integr8ly-img-responsive"]
+
+If your environment is not ready then wait a few minutes and refresh the RHPDS UI. Contact your lab administrator(s) if the environment fails to become ready.
+
+=== Using a Personal/Custom AWS Environment
+
+Obtaining an AWS Environment from a source other than AWS is supported, but outside the current scope of these instructions.
 
 == Setup the AWS CLI
 
@@ -39,22 +77,18 @@ Next, configure the AWS CLI using the `aws configure` command. This requires an 
 
 This lab assumes you're using an RHPDS account with the *Red Hat Open Environments > AWS Blank Open Environment* provisioned. As a result you'll have access to these two pieces of information from the RHPDS UI. If you're not using RHPDS then you'll need to follow the link:https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config[AWS guide here].
 
-Once you have the *Access Key ID* and *Secret Access Key* use them to configure the AWS CLI.
+Once you have the *Access Key ID* and *Secret Access Key* use them to configure the AWS CLI per the following screenshot. The chosen region is `us-east1` since this is the default region for RHPDS.
 
-----
-aws configure
+image::images/lab-0-rhpds-aws-configure.png[AWS CLI Configuration, role="integr8ly-img-responsive"]
 
-AWS Access Key ID: ****************
-AWS Secret Access Key: ****************
-Default region name [us-east1]:
-Default output format [None]:
-----
 
 == Create an AWS IAM Policy for CCS
 
-The OpenShift Cluster Manager on link:{ocm-url}[cloud.redhat.com] requires a user named *osdCcsAdmin* to provision the OpenShift Dedicated resources in your AWS Account - this is described on the *Customer Procedure* section of the link:https://www.openshift.com/dedicated/ccs[Customer Cloud Subscription (CCS)] page.
+The OpenShift Cluster Manager on link:{ocm-url}[cloud.redhat.com] requires a user named *osdCcsAdmin* to provision the OpenShift Dedicated resources into your AWS Account - this is described on the *Customer Procedure* section of the link:https://www.openshift.com/dedicated/ccs[Customer Cloud Subscription (CCS)] page.
 
-Here's how you can create this policy and user via the AWS CLI:
+Here's how you can create this policy and user via the AWS CLI. A screenshot summary is included below.
+
+image::images/lab-0-rhpds-aws-commands.png[AWS CLI User Setup Commands, role="integr8ly-img-responsive"]
 
 1. Create a file that contains this JSON:
 +
@@ -79,7 +113,7 @@ export POLICY_NAME=osd-ccs-policy
 # file that contains the JSON policy definition
 aws iam create-policy --policy-name $POLICY_NAME --policy-document file:///Users/yourusername/policy.json
 ----
-3. Take note of the returned *Account ID*. You'll need it later. If you lose it you can retrieve it again using the `aws sts get-caller-identity` command.
+3. The new policy details will be printed in your terminal. Press the `Q` key to dismiss them.
 4. Create the *osdCcsAdmin* user:
 +
 ----
@@ -87,17 +121,22 @@ export OSD_USER=osdCcsAdmin
 
 aws iam create-user --user-name $OSD_USER
 ----
-5. Attach the policy to the user using the account ID from earlier:
+5. Press `Q` to dismiss the new user details.
+6. Obtain the *AWS Account ID* using the `aws sts get-caller-identity` command.
+7. Attach the policy to the this new user using the Account ID:
 +
 ----
+export ACCOUNT_ID=<replace-me>
 aws iam attach-user-policy --policy-arn arn:aws:iam::$ACCOUNT_ID:policy/$POLICY_NAME --user-name $OSD_USER
 ----
-6. Lastly, create a new *Access Key ID* and *Secret Access Key* for the *osdCcsAdmin* user:
+8. Lastly, create a new *Access Key ID* and *Secret Access Key* for the *osdCcsAdmin* user:
 +
 ----
-aws iam create-access-key --user-name osdCcsAdmin
+aws iam create-access-key --user-name $OSD_USER
 ----
-7. Do not lost the output from the `aws iam create-access-key --user-name osdCcsAdmin` command. You'll need it in the next section.
++
+image::images/lab-0-rhpds-aws-secrets.png[AWS CLI osdCcsAdmin Credentials, role="integr8ly-img-responsive"]
+9. Do not lose the output from the `aws iam create-access-key --user-name osdCcsAdmin` command! You'll need it in the next section.
 
 == Provision the {osd-name} Cluster
 
@@ -142,7 +181,7 @@ A second prompt explaining the *Customer cloud subscription* may also be display
 .. Select the *Region* that matches what you used when following the `aws configure` instructions previously.
 .. Leave the *Availability* set to *Single-zone*.
 +
-image::images/lab0-ocm-aws-config.png[OpenShift Cluster Manager Create AWS Config, role="integr8ly-img-responsive"]
+image::images/lab0-ocm-aws-configs.png[OpenShift Cluster Manager Create AWS Config, role="integr8ly-img-responsive"]
 . Set the following options for *Scale*:
 .. Choose *m5.xlarge* worker nodes
 .. Set the *Worker node count* to *8*.
@@ -153,6 +192,8 @@ image::images/lab0-ocm-network-config.png[OpenShift Cluster Manager Create Netwo
 . Click *Create cluster*.
 
 At this point the {osd-name} Cluster will start provisioning. This can take up to 30 minutes. In the meantime you can configure OAuth access to the cluster!
+
+image::images/lab0-ocm-installing.png[OpenShift Cluster Manager InstallCreating Cluster, role="integr8ly-img-responsive"]
 
 == Configure Cluster Access Management
 
