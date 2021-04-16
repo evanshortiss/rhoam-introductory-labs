@@ -11,7 +11,7 @@
 
 
 
-= Red Hat OpenShift API Management Introduction
+= Red Hat OpenShift API Management Introduction & Install
 
 This lab provides an introduction to {rhoam-name}, also known as {rhoam-acronym}. If you're already familiar with Red Hat {osd-name}, Red Hat {3scale-name} and Red Hat {sso-name} you'll immediately feel at home using {rhoam-acronym}.
 
@@ -42,14 +42,44 @@ Verify you have a development environment with the following configured before c
 * Git CLI
 * Local Java environment with Maven installed
 
+== Installing the {rhoam-acronym} Add-on
+
+. Login to link:{ocm-url}[cloud.redhat.com, window="_blank"].
+. Navigate to the link:{ocm-url/openshift/}[clusters list, window="_blank"].
+. Select the {osd-name} cluster you plan to install {rhoam-acronym} onto.
+. Navigate to the *Add-ons* tab.
++
+image::images/lab1-addon-tile.png[RHOAM Addon tile in Add-ons UI]
+. Click the *Install* button on the {rhoam-name} tile.
+. A dialog asking for *CIDR range* and *Notification email* are displayed.
++
+image::images/lab1-addon-dialog.png[RHOAM Addon Dialog UI]
+. Click the *Use default* link for the CIDR range.
++
+[NOTE]
+====
+We're using the default CIDR range since we chose the basic networking configuration when creating the cluster used in this lab. It may be necessary to specify a different CIDR range if you had chosen advanced networking.
+====
+. Enter your email address in the *Notification email* field.
+[NOTE]
+====
+This email address will receive notifications when the API Management service utilisation approaches limits defined in the SKU.
+====
+. Click the *Install* button.
+
+The installation process can take up to 30 minutes.
+
 [time=5]
 [id='accessing-the-cluster']
 :sectnums:
 ==  Accessing your Environment
 
-If you're in an instructor-led lab your instructor will provide you with the OpenShift console URL.
+[NOTE]
+====
+You can skip this section if you did not provision your own environment.
+====
 
-If you've chosen to provision your own environment you can access the OpenShift console using the following steps:
+If you've provisioned your own environment you can access the OpenShift console using the following steps:
 
 . Login to link:{ocm-url}[cloud.redhat.com, window="_blank"].
 . Navigate to the link:{ocm-url/openshift/}[clusters list, window="_blank"].
@@ -73,7 +103,7 @@ Documentation for {osd-name} IdP configuration is available at link:https://docs
 
 == Accessing Red Hat {3scale-name} and Red Hat {sso-name}
 
-Now that you've successfully logged into your {osd-acronym} cluster you can access the managed {3scale-name} and {sso-name} instances.
+If the {rhoam-name} Add-on has completed installation you can login into your {osd-acronym} cluster, and you can access the managed {3scale-name} and {sso-name} instances.
 
 The procedure is the same for both products.
 
