@@ -233,8 +233,10 @@ image::images/lab0-gh-invite.png[GitHub Org Invite, role="integr8ly-img-responsi
 . Select your cluster from the list. The cluster details will be displayed.
 . Select the *Access control* tab form the cluster details.
 . Click the *Add identity provider* button. A dialog will appear.
++
+image::images/lab0-ocm-idp.png[Adding an IdP on OCM]
 . Choose *GitHub* from the *Identity Provider* dropdown.
-. Enter a name. Entering just "GitHub" is fine.
+. Enter a name. Using the default "GitHub" value is OK.
 . Copy the *OAuth callback URL*, and leave the dialog open.
 . Open another browser tab/window, and use it to navigate to your GitHub organisation. If you lost your organisation URL you can find it at link:https://github.com/settings/organizations[github.com/settings/organizations].
 . Select *Settings* from the organisation homepage.
@@ -243,21 +245,33 @@ image::images/lab0-gh-invite.png[GitHub Org Invite, role="integr8ly-img-responsi
 +
 image::images/lab0-gh-new-app.png[GitHub New OAuth App, role="integr8ly-img-responsive"]
 . Enter an *Application name*.
-. Any URL can be used as the homepage URL, but enter "https://cloud.redhat.com" for the time being.
-. Paste the URL you copied into the *Authorization callback URL* field on cloud.redhat.com.
+. Any URL can be used as the homepage URL, but enter `https://cloud.redhat.com` for the time being.
+. Paste the URL you copied from *cloud.redhat.com* into the *Authorization callback URL* field.
 . Click the *Register application* button. You should be redirected to your application's page.
 +
 image::images/lab0-gh-oauth-app.png[GitHub OAuth application, role="integr8ly-img-responsive"]
 . Copy the *Client ID* from this page and paste it into the corresponding field on cloud.redhat.com.
 . Return to the GitHub application page and click the *Generate a new client secret* button.
 . Copy the secret and paste it into the corresponding field on cloud.redhat.com.
+. Scroll to the bottom of the *Create identity provider* dialog on *cloud.redhat.com* and select *Use organizations*.
++
+image::images/lab0-ocm-idp-orgs.png[GitHub IdP Organizations]
+. Enter your organization name into the *Organizations* input field.
 . Click *Confirm* in the cloud.redhat.com dialog.
 
-You now have an IdP configured and can login to your {osd-name} cluster once the provisioning has completed.
+You now have an IdP configured and can login to your {osd-name} cluster once the provisioning has completed. Test this using the following steps.
+
+1. Select your cluster on link:https://cloud.redhat.com[cloud.redhat.com/openshift].
+2. Click the blue *Open console* button in the top-right corner.
+3. Verify that your GitHub IdP is listed as shown.
++
+image::images/lab0-ocm-idp-listed.png[GitHub IdP Listed on OSD Login Screen]
+4. Select your IdP and login using the GitHub OAuth flow.
+
 
 [NOTE]
 ====
-It can take 1-2 minutes for the IdP settings to synchronise with the {osd-name} cluster. If you click *Open Console* to view the {osd-name} Console and don't see your IdP listed then you'll need to wait a minute and refresh the page.
+It can take 1-2 minutes for the IdP settings to synchronise with the {osd-name} cluster. If you don't see your IdP listed on the login screen then you'll need to wait a minute and refresh the page.
 ====
 
 === Add Cluster Administrative Users
@@ -272,11 +286,17 @@ Follow these steps to apply the *dedicated-admin* role to your user:
 . Select your cluster from the list.
 . Select the *Access control* section.
 . Click the *Add user* button. A dialog should appear.
-. Enter your _GitHub username_ (because you're using GitHub as an IdP) and select the *dedicated-admins* group.
++
+image::images/lab0-ocm-add-user-dialog.png[OCM Add User Dialog]
+. Enter your GitHub username (because GitHub is the IdP in-use) and select the *dedicated-admins* group.
 . Click the *Add user* button to save the change.
 
-Your GitHub user is a *dedicated-admin* now.
+You are *dedicated-admin* now. Verify this by logging into the cluster and confirming that you can view the *OperatorHub* and namespaces that require elevated privileges as shown.
 
-== Login to the Cluster
+image:images/lab0-ocm-verify-admin.png[Verify dedicated-admin via OperatorHub]
 
-TODO
+== Congratulations
+
+You've provisioned an {osd-name} cluster and configured access to it via an external IdP!
+
+Time for the next lab.
