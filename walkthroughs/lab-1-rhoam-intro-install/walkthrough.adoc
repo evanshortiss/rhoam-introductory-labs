@@ -117,6 +117,8 @@ At the time of writing there is a known issue that may cause the Add-on to repor
 The procedure to access the consoles is the same for both {3scale-name} and {sso-name}.
 
 . Click the *Application Launcher* icon in the {osd-name} console. This the square icon in the top-right.
++
+image:images/lab1-app-launcher.png[OSD Application Launcher]
 . Select *API Management* to access {3scale-name}, or *API Management SSO* to access {sso-name}.
 . A new browser tab will open and prompt you to login. Login using your IdP.
 . You will be redirected to the applicable product console after successfully authenticating with your IdP.
