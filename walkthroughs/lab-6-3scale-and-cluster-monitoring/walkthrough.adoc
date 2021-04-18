@@ -47,7 +47,7 @@ You should be redirected to a Grafana instance homepage after successfully authe
 
 All the dashboards that are available to you should be listed, similar to the following image.
 
-image::images/lab-6-grafana-dashboards.png[Grafana Dashboards]
+image::images/lab-6-grafana-dashboard-list.png[Grafana Dashboards]
 
 The *Critical SLO summary* dashboard provides the viewer with information relating to Service Level Objectives. Specifically, it indicates the availability of {rhoam-acronym} components within the overall SLA agreement a 28 day period.
 
