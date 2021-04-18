@@ -31,7 +31,7 @@ Monitoring resources can only be viewed by OpenShift user accounts that have *de
 .. Prometheus
 .. Alertmanager
 
-image::images/lab-6-mw-monitor-routes.png[Middleware Monitoring Routes]
+image::images/lab-6-mw-monitor-route-list.png[Middleware Monitoring Routes]
 
 === Accessing the Grafana Dashboards
 
