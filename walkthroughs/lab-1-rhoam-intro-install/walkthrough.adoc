@@ -66,6 +66,8 @@ We're using the default CIDR range since we chose the basic networking configura
 [NOTE]
 ====
 This email address will receive notifications when the API Management service utilisation approaches limits defined in the SKU.
+
+The 3scale and Cluster monitoring has more detail about notifications and alerts.
 ====
 . Click the *Install* button.
 
