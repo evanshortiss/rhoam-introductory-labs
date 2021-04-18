@@ -49,7 +49,7 @@ All the dashboards that are available to you should be listed, similar to the fo
 
 image::images/lab-6-grafana-dashboards.png[Grafana Dashboards]
 
-The *Critical SLO summary* dashboard provides the viewer with information relating to Service Level Objectives. Specifically, it indicates the availability of {rhoam-acronym} components are within the overall SLA agreement.
+The *Critical SLO summary* dashboard provides the viewer with information relating to Service Level Objectives. Specifically, it indicates the availability of {rhoam-acronym} components within the overall SLA agreement a 28 day period.
 
 image::images/lab-6-mw-monitor-slo.png[SLO Grafana Dashboard]
 
@@ -69,6 +69,8 @@ image::images/lab-6-mw-monitor-namespaces.png[Middleware Namespace Resource Graf
 . Choose the *redhat-rhoam-3scale* entry.
 
 This view can be used to monitor CPU and Memory usage by APIcast, Zync, and other {3scale-name} Pods.
+
+=== Viewing Managed Service Resource Usage as a Fraction of Cluster Totals
 
 To view the resource usage of the Managed Service components with respect to overall cluster resource usage/availability:
 
