@@ -42,6 +42,7 @@ Verify you have a development environment with the following configured before c
 * Git CLI
 * Local Java environment with Maven installed
 
+:sectnums:
 == Installing the {rhoam-acronym} Add-on
 
 . Login to link:{ocm-url}[cloud.redhat.com, window="_blank"].
@@ -61,6 +62,7 @@ image::images/lab1-addon-dialog.png[RHOAM Addon Dialog UI]
 We're using the default CIDR range since we chose the basic networking configuration when creating the cluster used in this lab. It may be necessary to specify a different CIDR range if you had chosen advanced networking.
 ====
 . Enter your email address in the *Notification email* field.
++
 [NOTE]
 ====
 This email address will receive notifications when the API Management service utilisation approaches limits defined in the SKU.
@@ -71,7 +73,6 @@ The installation process can take up to 30 minutes.
 
 [time=5]
 [id='accessing-the-cluster']
-:sectnums:
 ==  Accessing your Environment
 
 [NOTE]
