@@ -140,6 +140,8 @@ image::images/lab-0-rhpds-aws-secrets.png[AWS CLI osdCcsAdmin Credentials, role=
 
 == Provision the {osd-name} Cluster
 
+You're ready to provision an {osd-name} cluster now that you have an AWS Account.
+
 === Verify Subscription Quota
 
 It's important to verify your quota prior to attempting to create the cluster using OpenShift Cluster Manager. Here's how to do that.
@@ -155,6 +157,8 @@ image::images/lab0-ocm-subs.png[OpenShift Cluster Manager Subscriptions Summary,
 [NOTE]
 ====
 Let your lab instructor know if your quota appears to be missing, or is significantly different to the screenshot.
+
+If your lab instructor provided you with a cloud.redhat.com account specifically for this lab, make sure you're using this account and not your personal one!
 ====
 
 === Provisioning an {osd-name} Cluster on AWS
