@@ -86,11 +86,9 @@ image::images/lab-0-rhpds-aws-configure.png[AWS CLI Configuration, role="integr8
 
 The OpenShift Cluster Manager on link:{ocm-url}[cloud.redhat.com] requires a user named *osdCcsAdmin* to provision the OpenShift Dedicated resources into your AWS Account - this is described on the *Customer Procedure* section of the link:https://www.openshift.com/dedicated/ccs[Customer Cloud Subscription (CCS)] page.
 
-Here's how you can create this policy and user via the AWS CLI. A screenshot summary is included below.
+Here's how you can create this policy and user via the AWS CLI.
 
-image::images/lab-0-rhpds-aws-commands.png[AWS CLI User Setup Commands, role="integr8ly-img-responsive"]
-
-1. Create a file that contains this JSON:
+1. Create a file named *policy.json* that contains this JSON:
 +
 ----
 {
@@ -137,6 +135,10 @@ aws iam create-access-key --user-name $OSD_USER
 +
 image::images/lab-0-rhpds-aws-secrets.png[AWS CLI osdCcsAdmin Credentials, role="integr8ly-img-responsive"]
 9. Do not lose the output from the `aws iam create-access-key --user-name osdCcsAdmin` command! You'll need it in the next section.
+
+A screenshot summary of the commands you have run is included below.
+
+image::images/lab-0-rhpds-aws-commands.png[AWS CLI User Setup Commands, role="integr8ly-img-responsive"]
 
 == Provision the {osd-name} Cluster
 
