@@ -39,14 +39,14 @@ image::images/lab-6-mw-monitor-route-list.png[Middleware Monitoring Routes]
 . A new browser tab will open and prompt you to login using OpenShift OAuth. Click the *Log in with OpenShift* button.
 . Authenticate using your configured IdP.
 . Authorize the account permissions request by choosing *Allow selected permissions*.
-
++
 You should be redirected to a Grafana instance homepage after successfully authenticating and authorizing account access.
 
 . Hover over the tile icon on the left and select *Manage*.
 . Select the *List* view icon.
-
++
 All the dashboards that are available to you should be listed, similar to the following image.
-
++
 image::images/lab-6-grafana-dashboard-list.png[Grafana Dashboards]
 
 The *Critical SLO summary* dashboard provides the viewer with information relating to Service Level Objectives. Specifically, it indicates the availability of {rhoam-acronym} components within the overall SLA agreement a 28 day period.
