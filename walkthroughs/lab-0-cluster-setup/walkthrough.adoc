@@ -163,7 +163,7 @@ If your lab instructor provided you with a cloud.redhat.com account specifically
 
 === Provisioning an {osd-name} Cluster on AWS
 
-. Navigate to the OpenShift Cluster Manager at link:{ocm-url/openshift}[cloud.redhat.com/openshift]
+. Navigate to the OpenShift Cluster Manager at link:{ocm-url}/openshift[cloud.redhat.com/openshift]
 . Click the *Create* cluster button beside *Red Hat {osd-name}*.
 +
 image::images/lab0-ocm-create-0.png[OpenShift Cluster Manager Create, role="integr8ly-img-responsive"]
@@ -234,7 +234,7 @@ image::images/lab0-gh-invite.png[GitHub Org Invite, role="integr8ly-img-responsi
 
 === Add GitHub Authentication to the Cluster
 
-. Navigate to the OpenShift Cluster Manager at link:{ocm-url/openshift}[cloud.redhat.com/openshift].
+. Navigate to the OpenShift Cluster Manager at link:{ocm-url}/openshift[cloud.redhat.com/openshift].
 . Select your cluster from the list. The cluster details will be displayed.
 . Select the *Access control* tab form the cluster details.
 . Click the *Add identity provider* button. A dialog will appear.
@@ -287,7 +287,7 @@ You can read more about users and roles in the link:https://docs.openshift.com/d
 
 Follow these steps to apply the *dedicated-admin* role to your user:
 
-. Navigate to the OpenShift Cluster Manager at link:{ocm-url/openshift}[cloud.redhat.com/openshift]
+. Navigate to the OpenShift Cluster Manager at link:{ocm-url}/openshift[cloud.redhat.com/openshift]
 . Select your cluster from the list.
 . Select the *Access control* section.
 . Click the *Add user* button. A dialog should appear.
