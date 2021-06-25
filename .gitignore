@@ -1,3 +1,6 @@
+# Generated HTML from asciidoc plugin
+walkthroughs/**/*.html
+
 # OS generated files #
 ######################
 .DS_Store

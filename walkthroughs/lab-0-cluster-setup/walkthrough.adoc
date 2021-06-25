@@ -14,7 +14,7 @@
 
 [NOTE]
 ====
-This is lab is optional. The instructor may have already completed this on your behalf. Check with your instructor before attempting to completing this section.
+This is lab is optional. The instructor may have already completed this on your behalf. Check with your instructor before following this guide.
 ====
 
 {rhoam-name} must be installed into an existing {osd-name} cluster.
@@ -33,7 +33,7 @@ We will be using an AWS Account for the purposes of this lab.
 ====
 These instructions are only applicable for Red Hat employees or partners with RHPDS access and the relevant entitlements for the listed catalog item(s).
 
-If you believe you should be able to, cannot obtain an AWS environment using these steps please reach out to the workshop administrator(s).
+If you believe you should be able to, but cannot obtain an AWS environment using these steps please reach out to the workshop administrator(s).
 ====
 
 . Login to link:https://rhpds.redhat.com/[RHPDS].
@@ -86,59 +86,26 @@ image::images/lab-0-rhpds-aws-configure.png[AWS CLI Configuration, role="integr8
 
 The OpenShift Cluster Manager on link:{ocm-url}[cloud.redhat.com] requires a user named *osdCcsAdmin* to provision the OpenShift Dedicated resources into your AWS Account - this is described on the *Customer Procedure* section of the link:https://www.openshift.com/dedicated/ccs[Customer Cloud Subscription (CCS)] page.
 
-Here's how you can create this policy and user via the AWS CLI.
+You can create this policy and user via the AWS CLI. A link:https://gist.github.com/evanshortiss/920e135688f89048e942bd8be0d56124[script]
+is provided to complete this step since it involves typing a few commands.
 
-1. Create a file named *policy.json* that contains this JSON:
-+
-----
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": "*",
-            "Resource": "*",
-            "Effect": "Allow"
-        }
-    ]
-}
-----
-2. Create an IAM Policy using the file
-+
-----
-export POLICY_NAME=osd-ccs-policy
+Review the script, then run it using the following command:
 
-# Note that the file:// prefix is necessary to reference your
-# file that contains the JSON policy definition
-aws iam create-policy --policy-name $POLICY_NAME --policy-document file:///Users/yourusername/policy.json
 ----
-3. The new policy details will be printed in your terminal. Press the `Q` key to dismiss them.
-4. Create the *osdCcsAdmin* user:
-+
+curl https://gist.githubusercontent.com/evanshortiss/920e135688f89048e942bd8be0d56124/raw/54a981077b320027f0b79ff715660097fccbce42/osd-ccs-admin-setup.sh | bash
 ----
-export OSD_USER=osdCcsAdmin
 
-aws iam create-user --user-name $OSD_USER
-----
-5. Press `Q` to dismiss the new user details.
-6. Obtain the numeric *AWS Account ID* using the `aws sts get-caller-identity` command.
-7. Attach the policy to the this new user using the Account ID:
-+
-----
-export ACCOUNT_ID=<replace-me>
-aws iam attach-user-policy --policy-arn arn:aws:iam::$ACCOUNT_ID:policy/$POLICY_NAME --user-name $OSD_USER
-----
-8. Lastly, create a new *Access Key ID* and *Secret Access Key* for the *osdCcsAdmin* user:
-+
-----
-aws iam create-access-key --user-name $OSD_USER
-----
-+
-image::images/lab-0-rhpds-aws-secrets.png[AWS CLI osdCcsAdmin Credentials, role="integr8ly-img-responsive"]
-9. Do not lose the output from the `aws iam create-access-key --user-name osdCcsAdmin` command! You'll need it in the next section.
+[NOTE]
+====
+If you'd rather not run the script by piping to bash, simply download its content and run it locally instead. The end result will be the same.
+====
 
-A screenshot summary of the commands you have run is included below.
+The script will print the AWS Account ID along with an Access Key ID and Secret
+Access Key once complete. Keep these safe, since they're required to create
+a OSD cluster. An example of the script output is shown below.
 
-image::images/lab-0-rhpds-aws-commands.png[AWS CLI User Setup Commands, role="integr8ly-img-responsive"]
+image::images/lab-0-rhpds-aws-script.png[AWS Credentials required by cloud.redhat.com, role="integr8ly-img-responsive"]
+
 
 == Provision the {osd-name} Cluster
 
@@ -160,13 +127,13 @@ image::images/lab0-ocm-subs.png[OpenShift Cluster Manager Subscriptions Summary,
 ====
 Let your lab instructor know if your quota appears to be missing, or is significantly different to the screenshot.
 
-If your lab instructor provided you with a cloud.redhat.com account specifically for this lab, make sure you're using this account and not your personal one!
+If you have OSD Trial quota this is OK to use to complete the lab.
 ====
 
 === Provisioning an {osd-name} Cluster on AWS
 
 . Navigate to the OpenShift Cluster Manager at link:{ocm-url}/openshift[cloud.redhat.com/openshift]
-. Click the *Create* cluster button beside *Red Hat {osd-name}*.
+. Click the *Create cluster* or *Create trial cluster* button beside *Red Hat {osd-name}*.
 +
 image::images/lab0-ocm-create-0.png[OpenShift Cluster Manager Create, role="integr8ly-img-responsive"]
 . Choose AWS as the infrastructure provider
@@ -189,9 +156,9 @@ A second prompt explaining the *Customer cloud subscription* may also be display
 .. Leave the *Availability* set to *Single-zone*.
 +
 image::images/lab0-ocm-aws-configs.png[OpenShift Cluster Manager Create AWS Config, role="integr8ly-img-responsive"]
-. Set the following options for *Scale*:
+. Use the following options for *Scale*:
 .. Choose *m5.xlarge* worker nodes
-.. Set the *Worker node count* to *8*.
+.. Set the *Worker node count* to *6*.
 . Select *Basic* as the *Networking Configuration*.
 . Select *Manual* for the *Cluster updates* option.
 +

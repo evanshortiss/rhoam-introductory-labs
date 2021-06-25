@@ -66,9 +66,15 @@ We're using the default CIDR range since we chose the basic networking configura
 [NOTE]
 ====
 This email address will receive notifications when the API Management service utilisation approaches limits defined in the SKU.
-
 The 3scale and Cluster monitoring has more detail about notifications and alerts.
 ====
+. Choose the *Evaluation* option from the Quota dropdown if it's displayed.
++
+[NOTE]
+====
+The OpenShift API Management resource requests/requirements are scaled based on the *Quota*.
+====
+. Check the *Addon Resource Requirements* box.
 . Click the *Install* button.
 
 The installation process can take up to 30 minutes.
