@@ -77,7 +77,7 @@ The OpenShift API Management resource requests/requirements are scaled based on 
 . Check the *Addon Resource Requirements* box.
 . Click the *Install* button.
 
-The installation process can take up to 30 minutes.
+The installation takes approximately 45 minutes on most clusters.
 
 [time=5]
 [id='accessing-the-cluster']
