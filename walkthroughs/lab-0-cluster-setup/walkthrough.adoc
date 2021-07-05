@@ -108,7 +108,7 @@ There are two ways to obtain an a lab account for {ocm-url}:
 . Your lab instructor will provide one
 . Signup for a trial account
 
-If you lab instructor has not provided an account, you can sign up for one:
+If you lab instructor has not provided an account, you can sign up for one. All new accounts receive trial quota for {osd-acronym} and {rhoam-acronym}.
 
 . Open link:{ocm-url}[cloud.redhat.com] in your web browser.
 . Click the *Log in* button.
