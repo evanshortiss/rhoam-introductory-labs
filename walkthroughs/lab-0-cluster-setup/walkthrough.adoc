@@ -12,11 +12,6 @@
 
 = Create and Configure an {osd-name} Cluster
 
-[NOTE]
-====
-This is lab is optional. The instructor may have already completed this on your behalf. Check with your instructor before following this guide.
-====
-
 {rhoam-name} must be installed into an existing {osd-name} cluster.
 
 This lab will guide you through the process of creating a link:https://www.openshift.com/dedicated/ccs[Customer Cloud Subscription (CCS)] that allows Red Hat to deploy and manage resources for an OpenShift Dedicated ({osd-acronym}) cluster in a given cloud vendor account.
@@ -106,18 +101,42 @@ a OSD cluster. An example of the script output is shown below.
 
 image::images/lab-0-rhpds-aws-script.png[AWS Credentials required by cloud.redhat.com, role="integr8ly-img-responsive"]
 
+== Obtain a Red Hat Cloud Account
+
+There are two ways to obtain an a lab account for {ocm-url}:
+
+. Your lab instructor will provide one
+. Signup for a trial account
+
+If you lab instructor has not provided an account, you can sign up for one:
+
+. Open link:{ocm-url}[cloud.redhat.com] in your web browser.
+. Click the *Log in* button.
+. Choose *Create one now* under the login form. This will direct you to the registration page.
+. Select *Corporate* as the *Account type*.
+. Enter a memorable username.
+. Use your `@redhat.com` email address, but enter a link:https://support.google.com/a/users/answer/9308648?hl=en[task specific address]. For example, `jdoe+rhoam-lab@redhat.com` if your email is `jdoe@redhat.com`.
+. Complete the form and click *Create my account*.
+
+Follow any subsequent steps on {ocm-url} and verify your email address if required.
 
 == Provision the {osd-name} Cluster
 
-You're ready to provision an {osd-name} cluster now that you have an AWS Account.
+You're ready to provision an {osd-name} cluster now that you have an AWS Account and {ocm-url} account.
 
 === Verify Subscription Quota
 
 It's important to verify your quota prior to attempting to create the cluster using OpenShift Cluster Manager. Here's how to do that.
 
 . Navigate to the OpenShift Cluster Manager at link:{ocm-url}/openshift[cloud.redhat.com/openshift]
+. Login using your lab account.
 . Select *Subscriptions* from the side-menu.
 . Verify that you have active subscriptions for an {osd-acronym} Cluster, {osd-acronym} nodes, and the and {rhoam-acronym} addon.
+
+[NOTE]
+====
+The RHOAM Addon is currently not listed if you're using trial quota. This is OK, and you can still provision {osd-acronym} and {rhoam-acronym}.
+====
 
 Your quota should appear similar to the following screenshot.
 
