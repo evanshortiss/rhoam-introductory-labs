@@ -25,7 +25,7 @@ Once this OpenShift Dedicated cluster is created you will be able to apply the {
 
 == Obtaining an AWS Account
 
-You will need to use an AWS Account for the purposes of this lab. There are three options for this:
+You will need to use an AWS Account for the purposes of this lab. You have three options to obtain one:
 
 . Provided by a lab instructor
 . Bring your own account
