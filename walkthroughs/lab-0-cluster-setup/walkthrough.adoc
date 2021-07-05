@@ -20,9 +20,35 @@ Once this OpenShift Dedicated cluster is created you will be able to apply the {
 
 == Obtaining an AWS Account
 
-We will be using an AWS Account for the purposes of this lab.
+You will need to use an AWS Account for the purposes of this lab. You have three options to obtain one:
 
-=== Using RHPDS
+. Provided by a lab instructor
+. Bring your own account
+. Obtained using your RHPDS Account
+
+Please talk to your lab instructor if you're unsure about which of these applies to you. Each option is described in detail below.
+
+=== Lab Instructor Provided Account
+
+Your lab instuctor will provide you with a link, *Lab Code*, and *Activation Key* that you can use to obtain an AWS Account.
+
+. Open the link in your web browser.
+. Select the correct *Lab Code* from the dropdown.
+. Enter the lab *Activation Key*.
+. Enter your email address.
+. Click the *Submit* button.
+
+You will be redirected to a page that contains AWS Account credentials. Proceed to the *Setup the AWS CLI* section from here.
+
+=== Using a Personal/Custom AWS Environment
+
+Obtaining an AWS Environment from a source other than RHPDS/instructor is supported, but outside the scope of these instructions.
+
+Proceed to the *Setup the AWS CLI* section once you've obtained an Access Key ID and Secret Access Key with adminisator permissions for the AWS Account
+
+=== Obtain an AWS Account using RHPDS
+
+Skip this section if your lab instructor has already provided you with an AWS Account.
 
 [NOTE]
 ====
@@ -53,10 +79,6 @@ The environment will start provisioning. It should be ready after a couple of mi
 image::images/lab-0-rhpds-aws.png[RHPDS AWS Open Environment Details, role="integr8ly-img-responsive"]
 
 If your environment is not ready then wait a few minutes and refresh the RHPDS UI. Contact your lab administrator(s) if the environment fails to become ready.
-
-=== Using a Personal/Custom AWS Environment
-
-Obtaining an AWS Environment from a source other than AWS is supported, but outside the current scope of these instructions.
 
 == Setup the AWS CLI
 
