@@ -44,12 +44,12 @@ Login Succeeded!
 . Pull the toolbox container image. The version of the image needs to match the version of the {3scale-name} platform:
 +
 ----
-$ podman pull registry.redhat.io/3scale-amp2/toolbox-rhel7:3scale2.9.0
+$ podman pull registry.redhat.io/3scale-amp2/toolbox-rhel7:3scale2.10
 ----
 . Verify the installation:
 +
 ----
-$ podman run --rm registry.redhat.io/3scale-amp2/toolbox-rhel7:3scale2.9 3scale help
+$ podman run --rm registry.redhat.io/3scale-amp2/toolbox-rhel7:3scale2.10 3scale help
 ----
 +
 .Expected Output
@@ -135,7 +135,7 @@ But to make working with the toolbox easier, the remote access credentials can a
 . Add the remote credentials to the {3scale-toolbox} image. Here you use `rhoam` as identifier for the credentials. Replace `<ACCESS_TOKEN>` with the value of the token you created in the previous section, and <3SCALE_HOSTNAME> with the host name of the {3scale-name} platform.
 +
 ----
-$ podman run --name toolbox-container registry.redhat.io/3scale-amp2/toolbox-rhel7:3scale2.9.0 3scale remote add rhoam https://<ACCESS_TOKEN>@<3SCALE_HOSTNAME>
+$ podman run --name toolbox-container registry.redhat.io/3scale-amp2/toolbox-rhel7:3scale2.10 3scale remote add rhoam https://<ACCESS_TOKEN>@<3SCALE_HOSTNAME>
 ----
 . Commit the image in a new image that includes the remote access credentials.
 +
