@@ -40,46 +40,6 @@ Your lab instuctor will provide you with a link, *Lab Code*, and *Activation Key
 
 You will be redirected to a page that contains AWS Account credentials. Proceed to the *Setup the AWS CLI* section from here.
 
-=== Using a Personal/Custom AWS Environment
-
-Obtaining an AWS Environment from a source other than RHPDS/instructor is supported, but outside the scope of these instructions.
-
-Proceed to the *Setup the AWS CLI* section once you've obtained an Access Key ID and Secret Access Key with adminisator permissions for the AWS Account
-
-=== Obtain an AWS Account using RHPDS
-
-Skip this section if your lab instructor has already provided you with an AWS Account.
-
-[NOTE]
-====
-These instructions are only applicable for Red Hat employees or partners with RHPDS access and the relevant entitlements for the listed catalog item(s).
-
-If you believe you should be able to, but cannot obtain an AWS environment using these steps please reach out to the workshop administrator(s).
-====
-
-. Login to link:https://rhpds.redhat.com/[RHPDS].
-. Select *Services > Catalogs* from the side-menu.
-. Expand the *Red Hat Open Environments* and select *AWS Blank Open Environment*.
-. Scroll down and click *Order*.
-+
-image::images/lab-0-rhpds-order.png[RHPDS AWS Open Environment Ordering, role="integr8ly-img-responsive"]
-. Check the box confirm you understand the warnings.
-. Select *Training - As part of a course* for the *Purpose*.
-. Enter an *Opportunity Number/ID or Campaign ID* if necessary.
-. Click *Submit*.
-
-The environment will start provisioning. It should be ready after a couple of minutes. Verify it was successful using the following steps:
-
-. Select *Services > My Services* from the RHPDS side-menu.
-. Verify that an entry is listed under *Active Services*.
-. Select the entry from the *Active Services* list and confirm that:
-.. The *Name* ends with `COMPLETED`, e.g `RHPDS-RH-yourusername-redhat.com-PROD_SANDBOX-5f11_COMPLETED`.
-.. The *Custom Attributes* section contains an *AWS_ACCESS_KEY_ID* and *AWS_SECRET_ACCESS_KEY*.
-
-image::images/lab-0-rhpds-aws.png[RHPDS AWS Open Environment Details, role="integr8ly-img-responsive"]
-
-If your environment is not ready then wait a few minutes and refresh the RHPDS UI. Contact your lab administrator(s) if the environment fails to become ready.
-
 == Setup the AWS CLI
 
 The AWS CLI is required to prepare the AWS Account for use with CCS. Use the instructions at this link to link:https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html[install AWS CLI v2] on your system.
